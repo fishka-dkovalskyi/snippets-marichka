@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Автоматизація роботи з Excel за допомогою Python та win32com.client</title>
+
+  <!-- Default Highlight.js CSS -->
+  <link id="highlight-css" rel="stylesheet"
+    href="../highlight/styles/atom-one-dark.css">
+  <script src="../highlight/highlight.min.js"></script>
+  <script src="../highlight/codeBlock.js"></script>
+  <link rel="stylesheet" href="../assets/css/mystyle.css">
+</head>
+
+<body class="light"> <!-- Default to light theme -->
+
+  <nav class="global">
+    <a href="../index.html">Home</a>
+    <a href="oracledb.html">Модуль python-oracledb для роботи з бд Oracle</a>
+    <a href="pywin32_excel.html">Автоматизація роботи з Excel за допомогою Python та win32com.client</a>
+    <a href="pywin32_outlook.html">Модуль pywin32 для роботи з Outlook</a>
+  </nav>
+
+  <nav class="local">
+    <a href="#1">1. Підготовка середовища</a>
+    <a href="#2">2. Створення та редагування Excel-файлу</a>
+    <div class="submenu">
+      <a href="#2.1">2.1 Перевірка існування файлу та його видалення</a>
+      <a href="#2.2">2.2 Створення, збереження файлу та закриття</a>
+      <a href="#2.3">2.3 Додавання та перейменування аркушів</a>
+      <a href="#2.4">2.4 Встановлення активного аркуша</a>
+      <a href="#2.5">2.5 Перелік всіх аркушів</a>
+      <a href="#2.6">2.6 Видалення аркуша за ім'ям</a>
+      <a href="#2.7">2.7 Запис даних у клітинки</a>
+      <a href="#2.8">2.8 Форматування клітинок</a>
+      <a href="#2.8">2.8 Форматування клітинок</a>
+    </div>
+    <a href="#3">3. Робота зі зведеними таблицями</a>
+    <div class="submenu">
+      <a href="#3.1">3.1 Створення простої зведеної таблиці</a>
+      <a href="#3.2">3.2 Створення складної зведеної таблиці</a>
+      <a href="#3.3">3.3 Створення складної зведеної таблиці 2</a>
+    </div>
+  </nav>
+
+
+
+  <!-- CSS Switcher -->
+  <label for="theme-switcher">Theme:</label>
+  <select id="theme-switcher">
+    <option value="light" selected>Light</option>
+    <option value="warm">Warm</option>
+    <option value="cold">Cold</option>
+  </select>
+
+  <!-- Code Theme Switcher -->
+  <label for="code-theme-switcher">Code theme:</label>
+  <select id="code-theme-switcher">
+    <option value="default">Default</option>
+    <option value="atom-one-dark" selected>Atom One Dark</option>
+    <option value="1c-light">1C Light</option>
+    <option value="1c-light.min">1C Light.Min</option>
+    <option value="a11y-dark">A11Y Dark</option>
+    <option value="a11y-dark.min">A11Y Dark.Min</option>
+    <option value="a11y-light">A11Y Light</option>
+    <option value="a11y-light.min">A11Y Light.Min</option>
+    <option value="agate">Agate</option>
+    <option value="agate.min">Agate.Min</option>
+    <option value="an-old-hope">An Old Hope</option>
+    <option value="an-old-hope.min">An Old Hope.Min</option>
+    <option value="androidstudio">Androidstudio</option>
+    <option value="androidstudio.min">Androidstudio.Min</option>
+    <option value="arduino-light">Arduino Light</option>
+    <option value="arduino-light.min">Arduino Light.Min</option>
+    <option value="arta">Arta</option>
+    <option value="arta.min">Arta.Min</option>
+    <option value="ascetic">Ascetic</option>
+    <option value="ascetic.min">Ascetic.Min</option>
+    <option value="atom-one-dark-reasonable">Atom One Dark Reasonable</option>
+    <option value="atom-one-dark-reasonable.min">Atom One Dark Reasonable.Min</option>
+    <option value="atom-one-dark.min">Atom One Dark.Min</option>
+    <option value="atom-one-light">Atom One Light</option>
+    <option value="atom-one-light.min">Atom One Light.Min</option>
+    <option value="brown-paper">Brown Paper</option>
+    <option value="brown-paper.min">Brown Paper.Min</option>
+    <option value="codepen-embed">Codepen Embed</option>
+    <option value="codepen-embed.min">Codepen Embed.Min</option>
+    <option value="color-brewer">Color Brewer</option>
+    <option value="color-brewer.min">Color Brewer.Min</option>
+    <option value="dark">Dark</option>
+    <option value="dark.min">Dark.Min</option>
+    <option value="default.min">Default.Min</option>
+    <option value="devibeans">Devibeans</option>
+    <option value="devibeans.min">Devibeans.Min</option>
+    <option value="docco">Docco</option>
+    <option value="docco.min">Docco.Min</option>
+    <option value="far">Far</option>
+    <option value="far.min">Far.Min</option>
+    <option value="felipec">Felipec</option>
+    <option value="felipec.min">Felipec.Min</option>
+    <option value="foundation">Foundation</option>
+    <option value="foundation.min">Foundation.Min</option>
+    <option value="github-dark-dimmed">Github Dark Dimmed</option>
+    <option value="github-dark-dimmed.min">Github Dark Dimmed.Min</option>
+    <option value="github-dark">Github Dark</option>
+    <option value="github-dark.min">Github Dark.Min</option>
+    <option value="github">Github</option>
+    <option value="github.min">Github.Min</option>
+    <option value="gml">Gml</option>
+    <option value="gml.min">Gml.Min</option>
+    <option value="googlecode">Googlecode</option>
+    <option value="googlecode.min">Googlecode.Min</option>
+    <option value="gradient-dark">Gradient Dark</option>
+    <option value="gradient-dark.min">Gradient Dark.Min</option>
+    <option value="gradient-light">Gradient Light</option>
+    <option value="gradient-light.min">Gradient Light.Min</option>
+    <option value="grayscale">Grayscale</option>
+    <option value="grayscale.min">Grayscale.Min</option>
+    <option value="hybrid">Hybrid</option>
+    <option value="hybrid.min">Hybrid.Min</option>
+    <option value="idea">Idea</option>
+    <option value="idea.min">Idea.Min</option>
+    <option value="intellij-light">Intellij Light</option>
+    <option value="intellij-light.min">Intellij Light.Min</option>
+    <option value="ir-black">Ir Black</option>
+    <option value="ir-black.min">Ir Black.Min</option>
+    <option value="isbl-editor-dark">Isbl Editor Dark</option>
+    <option value="isbl-editor-dark.min">Isbl Editor Dark.Min</option>
+    <option value="isbl-editor-light">Isbl Editor Light</option>
+    <option value="isbl-editor-light.min">Isbl Editor Light.Min</option>
+    <option value="kimbie-dark">Kimbie Dark</option>
+    <option value="kimbie-dark.min">Kimbie Dark.Min</option>
+    <option value="kimbie-light">Kimbie Light</option>
+    <option value="kimbie-light.min">Kimbie Light.Min</option>
+    <option value="lightfair">Lightfair</option>
+    <option value="lightfair.min">Lightfair.Min</option>
+    <option value="lioshi">Lioshi</option>
+    <option value="lioshi.min">Lioshi.Min</option>
+    <option value="magula">Magula</option>
+    <option value="magula.min">Magula.Min</option>
+    <option value="mono-blue">Mono Blue</option>
+    <option value="mono-blue.min">Mono Blue.Min</option>
+    <option value="monokai-sublime">Monokai Sublime</option>
+    <option value="monokai-sublime.min">Monokai Sublime.Min</option>
+    <option value="monokai">Monokai</option>
+    <option value="monokai.min">Monokai.Min</option>
+    <option value="night-owl">Night Owl</option>
+    <option value="night-owl.min">Night Owl.Min</option>
+    <option value="nnfx-dark">Nnfx Dark</option>
+    <option value="nnfx-dark.min">Nnfx Dark.Min</option>
+    <option value="nnfx-light">Nnfx Light</option>
+    <option value="nnfx-light.min">Nnfx Light.Min</option>
+    <option value="nord">Nord</option>
+    <option value="nord.min">Nord.Min</option>
+    <option value="obsidian">Obsidian</option>
+    <option value="obsidian.min">Obsidian.Min</option>
+    <option value="panda-syntax-dark">Panda Syntax Dark</option>
+    <option value="panda-syntax-dark.min">Panda Syntax Dark.Min</option>
+    <option value="panda-syntax-light">Panda Syntax Light</option>
+    <option value="panda-syntax-light.min">Panda Syntax Light.Min</option>
+    <option value="paraiso-dark">Paraiso Dark</option>
+    <option value="paraiso-dark.min">Paraiso Dark.Min</option>
+    <option value="paraiso-light">Paraiso Light</option>
+    <option value="paraiso-light.min">Paraiso Light.Min</option>
+    <option value="pojoaque">Pojoaque</option>
+    <option value="pojoaque.min">Pojoaque.Min</option>
+    <option value="purebasic">Purebasic</option>
+    <option value="purebasic.min">Purebasic.Min</option>
+    <option value="qtcreator-dark">Qtcreator Dark</option>
+    <option value="qtcreator-dark.min">Qtcreator Dark.Min</option>
+    <option value="qtcreator-light">Qtcreator Light</option>
+    <option value="qtcreator-light.min">Qtcreator Light.Min</option>
+    <option value="rainbow">Rainbow</option>
+    <option value="rainbow.min">Rainbow.Min</option>
+    <option value="routeros">Routeros</option>
+    <option value="routeros.min">Routeros.Min</option>
+    <option value="school-book">School Book</option>
+    <option value="school-book.min">School Book.Min</option>
+    <option value="shades-of-purple">Shades Of Purple</option>
+    <option value="shades-of-purple.min">Shades Of Purple.Min</option>
+    <option value="srcery">Srcery</option>
+    <option value="srcery.min">Srcery.Min</option>
+    <option value="stackoverflow-dark">Stackoverflow Dark</option>
+    <option value="stackoverflow-dark.min">Stackoverflow Dark.Min</option>
+    <option value="stackoverflow-light">Stackoverflow Light</option>
+    <option value="stackoverflow-light.min">Stackoverflow Light.Min</option>
+    <option value="sunburst">Sunburst</option>
+    <option value="sunburst.min">Sunburst.Min</option>
+    <option value="tokyo-night-dark">Tokyo Night Dark</option>
+    <option value="tokyo-night-dark.min">Tokyo Night Dark.Min</option>
+    <option value="tokyo-night-light">Tokyo Night Light</option>
+    <option value="tokyo-night-light.min">Tokyo Night Light.Min</option>
+    <option value="tomorrow-night-blue">Tomorrow Night Blue</option>
+    <option value="tomorrow-night-blue.min">Tomorrow Night Blue.Min</option>
+    <option value="tomorrow-night-bright">Tomorrow Night Bright</option>
+    <option value="tomorrow-night-bright.min">Tomorrow Night Bright.Min</option>
+    <option value="vs">Vs</option>
+    <option value="vs.min">Vs.Min</option>
+    <option value="vs2015">Vs2015</option>
+    <option value="vs2015.min">Vs2015.Min</option>
+    <option value="xcode">Xcode</option>
+    <option value="xcode.min">Xcode.Min</option>
+    <option value="xt256">Xt256</option>
+    <option value="xt256.min">Xt256.Min</option>
+  </select>
+
+  <h1>Автоматизація роботи з Excel за допомогою Python та win32com.client</h1>
+
+  <section id="1">
+    <h2>1. Підготовка середовища</h2>
+    <p>Для роботи з Excel через Python необхідно встановити бібліотеку pywin32:</p>
+    <script>
+      createCodeBlock(`pip install pywin32`, document.querySelector('[id="1"]'));
+    </script>
+    <p>Також слід переконатися, що встановлений Microsoft Excel.</p>
+  </section>
+
+  <section id="2">
+    <h2>2. Створення та редагування Excel-файлу</h2>
+
+    <h3 id="2.1">2.1 Перевірка існування файлу та його видалення</h3>
+    <script>
+      createCodeBlock(String.raw`
+import win32com.client
+import os
+
+xlsx_filepath = r"C:\Users\dmytr\Desktop\xlsx-py\report.xlsx"
+if os.path.exists(xlsx_filepath):
+    print(f"Файл видалено {xlsx_filepath}")
+    os.remove(xlsx_filepath)
+else:
+    print(f"Початок створення файлу {xlsx_filepath}")
+
+`, document.querySelector('[id="2.1"]'));
+    </script>
+
+    <h3 id="2.2">2.2 Створення, збереження файлу та закриття
+      <script>
+        createCodeBlock(String.raw`
+xlsx_filepath = r"C:\Users\dmytr\Desktop\xlsx-py\report.xlsx"
+
+# Запуск Excel
+excel = win32com.client.Dispatch("Excel.Application")
+
+# Створення нового файлу
+wb = excel.Workbooks.Add()
+
+
+# Збереження файлу в зазначену папку
+wb.SaveAs(xlsx_filepath)
+
+# Закриття файлу та вихід з Excel
+wb.Close(SaveChanges=1)  # 1 означає зберегти зміни
+excel.Quit()
+print(f"Збереження файлу {xlsx_filepath}")
+
+
+`, document.querySelector('[id="2.2"]'));
+      </script>
+
+
+    </h3>
+    <div class="container">
+      <figure>
+          <img src="../images/pywin32_excel/2.2.png" alt="2.2 Створення, збереження файлу та закриття">
+          <figcaption>Вигляд дефолтної книги</figcaption>
+      </figure>
+  </div>
+
+    <h3 id="2.3">2.3 Додавання та перейменування аркушів
+      <script>
+        createCodeBlock(String.raw`
+# Додавання та перейменування аркуша
+ws1 = wb.Sheets.Add()
+ws1.Name = "Лист1"
+ws2 = wb.Sheets.Add()
+ws2.Name = "Лист2"
+
+`, document.querySelector('[id="2.3"]'));
+      </script>
+    </h3>
+
+
+  
+    <h3 id="2.4">2.4 Встановлення активного аркуша</h3>
+    <script>
+      createCodeBlock(String.raw`
+# Встановлення активного аркуша
+wb.Sheets("Лист2").Activate()
+
+# Альтернативно активуємо перший аркуш
+wb.Sheets(1).Activate()
+
+`, document.querySelector('[id="2.4"]'));
+    </script>
+
+    <h3 id="2.5">2.5 Перелік всіх аркушів</h3>
+    <script>
+      createCodeBlock(String.raw`
+# Перелік всіх аркушів
+sheets = wb.Sheets
+for sheet in sheets:
+    print(sheet.Index, sheet.Name)  # Виведе позицію та ім'я кожного аркуша
+
+`, document.querySelector('[id="2.5"]'));
+    </script>
+
+
+    <h3 id="2.6">2.6 Видалення аркуша за ім'ям</h3>
+    <script>
+      createCodeBlock(String.raw`
+# Видаляємо аркуш за ім'ям
+sheet_name_to_delete = "Лист 3"
+
+try:
+    sheet_to_delete = sheets(sheet_name_to_delete)
+    sheet_to_delete.Delete()
+    print(f"Аркуш '{sheet_name_to_delete}' видалено.")
+except Exception as e:
+    print(f"Не вдалося видалити аркуш: {e}")
+
+
+`, document.querySelector('[id="2.6"]'));
+    </script>
+
+    <h3 id="2.7">2.7 Запис даних у клітинки</h3>
+    <script>
+      createCodeBlock(String.raw`
+# Запис тексту в клітинку
+ws1.Cells(1, 1).Value = "Привіт"
+
+# Запис числових значень
+ws1.Cells(2, 1).Value = 100
+
+# Запис формули
+ws1.Cells(3, 1).Formula = "=SUM(A1:A2)"
+
+# Запис значень у діапазон клітинок
+ws2.Range("A1:B2").Value = [[1, 2], [3, 4]]
+
+
+# Запис значень у діапазон клітинок
+ws3 = wb.Sheets.Add()
+ws3.Name = "Лист3"
+for row in range(1, 11):
+    for col in range(1, 6):
+        ws3.Cells(row, col).Value = f"Значення {row},{col}"
+
+
+
+# Дані
+data = [
+    ["Category", "Sales", "Region", "Date"],
+    ["Apples", 100, "North", "2024-01-01"],
+    ["Bananas", 200, "South", "2024-01-02"],
+    ["Apples", 150, "West", "2024-01-02"],
+    ["Bananas", 250, "North", "2024-01-03"],
+    ["Oranges", 180, "East", "2024-01-04"],
+    ["Apples", 300, "South", "2024-01-05"],
+    ["Oranges", 220, "North", "2024-01-06"],
+    ["Bananas", 180, "West", "2024-01-07"],
+    ["Apples", 130, "East", "2024-01-08"],
+    ["Oranges", 200, "South", "2024-01-09"],
+]
+
+# Запис даних у вркуш
+for row_idx, row in enumerate(data, start=1):
+    for col_idx, value in enumerate(row, start=1):
+        sheet.Cells(row_idx, col_idx).Value = value
+
+`, document.querySelector('[id="2.7"]'));
+    </script>
+    <div class="container">
+      <figure>
+          <img src="../images/pywin32_excel/2.7.png" alt="2.7 Запис даних у клітинки">
+          <figcaption>Результат запису даних</figcaption>
+      </figure>
+  </div>
+
+
+    <h3 id="2.8">2.8 Форматування клітинок</h3>
+    <script>
+      createCodeBlock(String.raw`
+# Зміна шрифту та стилю тексту
+cell = ws1.Cells(1, 1)
+cell.Font.Name = "Arial"
+cell.Font.Size = 12
+cell.Font.Bold = True
+cell.Font.Color = 0xFF0000  # Червоний
+cell.Font.Italic = True
+cell.Font.Underline = True  # Підкреслення
+cell.Font.Strikethrough = True  # Закреслений текст
+
+# Зміна кольору фону
+cell.Interior.Color = 0x00FF00  # Зелений фон
+
+# Додавання обведення
+cell.Borders(1).LineStyle = 1  # Лінія зліва (xlEdgeLeft)
+cell.Borders(2).LineStyle = 1  # Лінія вгорі (xlEdgeTop)
+cell.Borders(3).LineStyle = 1  # Лінія знизу (xlEdgeBottom)
+cell.Borders(4).LineStyle = 1  # Лінія праворуч (xlEdgeRight)
+
+# Товста чорна рамка навколо клітинки
+cell.Borders(7).Weight = 4  # xlThick
+cell.Borders(7).Color = 0x000000  # Чорний колір
+
+# Вирівнювання тексту у клітинці
+cell.HorizontalAlignment = -4108  # xlCenter
+cell.VerticalAlignment = -4108  # xlCenter
+cell.WrapText = True  # Автоматичний перенос тексту
+
+# Форматування чисел
+ws1.Cells(2, 2).NumberFormat = "#,##0.00"  # Формат з двома десятковими
+ws1.Cells(3, 2).NumberFormat = "0%"  # Відображення у відсотках
+ws1.Cells(4, 2).NumberFormat = "dd/mm/yyyy"  # Дата у форматі день/місяць/рік
+
+`, document.querySelector('[id="2.8"]'));
+    </script>
+  </section>
+
+  <section id="3">
+    <h2>3. Робота зі зведеними таблицями</h2>
+
+    <h3 id="3.1">3.1 Створення простої зведеної таблиці</h3>
+    <script>
+      createCodeBlock(String.raw`
+pivot_sheet = wb.Sheets.Add()
+pivot_sheet.Name = "Зведена таблиця"
+
+# 📌 Приклад вихідних даних
+data = [
+    ["Категорія", "Продажі"],
+    ["Яблука", 100],
+    ["Банани", 200],
+    ["Яблука", 150],
+    ["Банани", 250],
+    ["Апельсини", 180],
+]
+
+# 📌 Записуємо вихідні дані у новий аркуш
+for row_idx, row in enumerate(data, start=1):
+    for col_idx, value in enumerate(row, start=1):
+        pivot_sheet.Cells(row_idx, col_idx).Value = value
+
+# 📌 Визначаємо діапазон даних
+last_row = len(data)
+data_range = pivot_sheet.Range(f"A1:B{last_row}")  # Наприклад, A1:B6
+pivot_table_range = pivot_sheet.Range("D1")  # Початкова комірка для зведеної таблиці
+
+# 📌 Створюємо кеш для зведеної таблиці
+pivot_cache = wb.PivotCaches().Create(SourceType=1, SourceData=data_range, Version=6)
+
+# 📌 Створюємо саму зведену таблицю
+pivot_table = pivot_cache.CreatePivotTable(TableDestination=pivot_table_range, TableName="SalesPivot")
+
+# 📌 Встановлюємо поле рядків (Категорія)
+pivot_table.PivotFields("Категорія").Orientation = 1  # xlRowField
+
+# 🔥 Додаємо поле "Продажі" як підсумкове (спочатку)
+data_field = pivot_table.AddDataField(pivot_table.PivotFields("Продажі"), "Загальні продажі", -4157)  # xlSum
+
+`, document.querySelector('[id="3.1"]'));
+    </script>
+
+<div class="container">
+  <figure>
+      <img src="../images/pywin32_excel/3.1.png" alt="3.1 Створення простої зведеної таблиці">
+      <figcaption>Проста зведена таблиця</figcaption>
+  </figure>
+</div>
+
+
+    <h3 id="3.2">3.2 Створення складної зведеної таблиці</h3>
+    <script>
+      createCodeBlock(String.raw`
+complex_pivot_sheet = wb.Sheets.Add()
+complex_pivot_sheet.Name = "Складна зведена таблиця"
+
+# 📌 Приклад вихідних даних
+data = [
+    ["Категорія", "Продажі", "Регіон", "Дата"],
+    ["Яблука", 100, "Північ", "2024-01-01"],
+    ["Банани", 200, "Південь", "2024-01-02"],
+    ["Яблука", 150, "Захід", "2024-01-02"],
+    ["Банани", 250, "Північ", "2024-01-03"],
+    ["Апельсини", 180, "Схід", "2024-01-04"],
+    ["Яблука", 300, "Південь", "2024-01-05"],
+]
+
+# 📌 Записуємо вихідні дані у новий аркуш
+for row_idx, row in enumerate(data, start=1):
+    for col_idx, value in enumerate(row, start=1):
+        complex_pivot_sheet.Cells(row_idx, col_idx).Value = value
+
+# 📌 Визначаємо діапазон даних
+last_row = len(data)
+last_col = len(data[0])
+data_range = complex_pivot_sheet.Range(
+    complex_pivot_sheet.Cells(1, 1), 
+    complex_pivot_sheet.Cells(last_row, last_col)
+)  # Діапазон A1:D11
+pivot_table_range = complex_pivot_sheet.Range("F2")  # Початкова комірка для зведеної таблиці
+
+# 📌 Створюємо кеш для зведеної таблиці
+pivot_cache = wb.PivotCaches().Create(SourceType=1, SourceData=data_range, Version=6)
+
+# 📌 Створюємо саму зведену таблицю
+pivot_table = pivot_cache.CreatePivotTable(TableDestination=pivot_table_range, TableName="SalesPivot")
+
+# 🔹 Додаємо поля до зведеної таблиці
+pivot_table.PivotFields("Категорія").Orientation = 1  # Поле рядків (xlRowField)
+pivot_table.PivotFields("Регіон").Orientation = 2    # Поле стовпців (xlColumnField)
+pivot_table.PivotFields("Дата").Orientation = 3      # Поле фільтра (xlPageField)
+
+# 🔥 Додаємо поле "Продажі" як підсумкове (сума)
+data_field = pivot_table.AddDataField(pivot_table.PivotFields("Продажі"), "Загальні продажі", -4157)  # xlSum
+
+# 🔹 Форматуємо значення продажів (розділення тисяч)
+data_field.NumberFormat = "#,##0"
+
+`, document.querySelector('[id="3.2"]'));
+    </script>
+<div class="container">
+  <figure>
+      <img src="../images/pywin32_excel/3.2.png" alt="3.2 Створення складної зведеної таблиці">
+      <figcaption>Складна зведена таблиця</figcaption>
+  </figure>
+</div>
+
+<h3 id="3.3">3.3 Створення складної зведеної таблиці 2</h3>
+<script>
+  createCodeBlock(String.raw`
+# 📌 Додаємо два нові аркуші: для даних та для зведеної таблиці
+complex_pivot_data_sheet2 = wb.Sheets.Add()
+complex_pivot_data_sheet2.Name = "Data for Pivot Table 2"
+complex_pivot_sheet2 = wb.Sheets.Add()
+complex_pivot_sheet2.Name = "Complex Pivot Table 2"
+
+# 📌 Вхідні дані у вигляді списку кортежів
+data = [
+    ('id', 'name', 'age', 'value'),
+    (1, "Alice", 25, 10),
+    (2, "Bob", 30, 40),
+    (3, "Charlie", 28, 20),
+    (4, "David", 35, 30),
+    (4, "David", 35, 100)
+]
+
+# 📌 Записуємо дані у новий аркуш
+start_row = 1
+start_col = 1
+
+for row_idx, row in enumerate(data, start=start_row):
+    for col_idx, value in enumerate(row, start=start_col):
+        complex_pivot_data_sheet2.Cells(row_idx, col_idx).Value = value
+
+# 📌 Визначаємо діапазон даних для зведеної таблиці (включаючи заголовки)
+last_row = len(data)  # Кількість рядків
+last_col = len(data[0])  # Кількість колонок
+data_range = complex_pivot_data_sheet2.Range(
+    complex_pivot_data_sheet2.Cells(1, 1), 
+    complex_pivot_data_sheet2.Cells(last_row, last_col)
+)
+
+# 📌 Створюємо кеш для зведеної таблиці
+pivot_cache = wb.PivotCaches().Create(
+    SourceType=1,  # 1 = xlDatabase
+    SourceData=data_range,
+    Version=6  # Для нових версій Excel
+)
+
+# 📌 Визначаємо місце для вставки зведеної таблиці
+pivot_table_range = complex_pivot_sheet2.Range("A1")
+
+# 📌 Створюємо зведену таблицю
+pivot_table = pivot_cache.CreatePivotTable(
+    TableDestination=pivot_table_range,  
+    TableName="PivotTable2"
+)
+
+# 📌 Отримуємо об'єкт зведеної таблиці
+complex_pivot_sheet2.Select()
+pivot = complex_pivot_sheet2.PivotTables("PivotTable2")
+
+# 🔹 Додаємо поля до рядків
+pivot.PivotFields("id").Orientation = 1  # xlRowField
+pivot.PivotFields("name").Orientation = 1  # xlRowField
+pivot.PivotFields("age").Orientation = 1  # xlRowField
+
+# 📌 Змінюємо макет рядків на табличний стиль
+pivot_table.RowAxisLayout(RowLayout=1)
+
+# 📌 Відключаємо підсумки для кожного поля
+for field_name in ["id", "name", "age"]:
+    pivot_table.PivotFields(field_name).Subtotals = tuple(False for _ in range(12))
+
+# 🔥 Додаємо поле "value" як підсумкове (сума)
+data_field = pivot_table.AddDataField(pivot_table.PivotFields("value"), "Total Sales", -4157)  # xlSum
+
+
+`, document.querySelector('[id="3.3"]'));
+</script>
+
+<div class="container">
+  <figure>
+      <img src="../images/pywin32_excel/3.3.png" alt="3.3 Створення складної зведеної таблиці 2">
+      <figcaption>Складна зведена таблиця 2</figcaption>
+  </figure>
+</div>
+
+</body>
+
+</html>
