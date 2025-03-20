@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="favicon.ico">
   <title>Сніппети Марічки</title>
 
 
@@ -46,6 +47,21 @@ h1 {
     justify-content: center;
 }
 
+
+  /* Default state */
+  .container-heart {
+      display: none;  /* Hidden by default */
+  }
+
+  .container-bocchi {
+      display: block; /* Visible by default */
+  }
+
+
+.bocchi {
+            display: block; /* Visible by default */
+        }
+
 .heart {
     font-size: 50px;
     color: #e91e63;
@@ -72,15 +88,27 @@ h1 {
 
 <body class="light"> <!-- Default to light theme -->
 
-
-
-
+  
   <nav class="global">
     <a href="index.html">Home</a>
+    
+    <a href="pages/number.html">🔢 Числові типи даних</a>
+    <a href="pages/string.html">🔡 Текстовий тип даних</a>
+    <a href="pages/bool.html">Логічні (Булівські) типи</a>
+    <a href="pages/list.html">Список (Масив) в Python</a>
+
+
+    <a href="pages/os.html">Модуль os робота з операційною системою</a>
+    <a href="pages/datetime.html">Модуль datetime дата та час</a>
+    <a href="pages/pyodbc.html">Модуль pyodbc для роботи з базами даних через ODBC</a>
     <a href="pages/oracledb.html">Модуль python-oracledb для роботи з бд Oracle</a>
     <a href="pages/pywin32_excel.html">Модуль pywin32 для роботи з Excel</a>
     <a href="pages/pywin32_outlook.html">Модуль pywin32 для роботи з Outlook</a>
+    <a href="pages/paramiko.html">Робота з SFTP-сервером: Завантаження та передача файлів за допомогою Paramiko</a>
+    <a href="pages/tkinter.html">Розробка GUI в Python: основи роботи з Tkinter</a>
   </nav>
+
+
 
   <nav class="local">
   </nav>
@@ -246,16 +274,50 @@ h1 {
     <option value="xt256.min">Xt256.Min</option>
   </select>
 
-  <div class="container">
+  <input type="text" id="commandInput" placeholder="Command:">
+
+
+  <label style="float: right;">
+    Version: <a href="changes.html" style="text-decoration: none; color: inherit;">2025-03-20</a>
+</label>
+
+
+
+    <div class="container container-heart">
     <h1>Сніппети Марічки <span class="heart">
         <img src="images/home/heart.png" alt="heart">
       </span></h1>
+  </div>
 
+
+  <div class="container container-bocchi">
+        <h1>Сніппети Марічки <span class="bocchi">
+            <img src="images/home/bocchi-coffee-bocchi-the-rock.gif" alt="bocchi-coffee-bocchi-the-rock">
+          </span></h1>
 
   </div>
   </div>
 
   <script>
+
+document.getElementById("commandInput").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                let command = this.value.trim();
+
+                if (command === "--bocchi") {
+                    document.querySelector(".container-heart").style.display = "none";
+                    document.querySelector(".container-bocchi").style.display = "block";
+                }
+
+                if (command === "--heart" || command == "❤") {
+                    document.querySelector(".container-heart").style.display = "block";
+                    document.querySelector(".container-bocchi").style.display = "none";
+                }
+
+                this.value = ""; // Clear input after pressing Enter
+            }
+        });
+
     // Function to change the theme based on the selected option
     document.getElementById('theme-switcher').addEventListener('change', function (event) {
       const selectedTheme = event.target.value;

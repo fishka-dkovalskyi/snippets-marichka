@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="../favicon.ico">
+  <title>🔡 Текстовий тип даних</title>
+
+  <!-- Default Highlight.js CSS -->
+  <link id="highlight-css" rel="stylesheet"
+    href="../highlight/styles/atom-one-dark.css">
+  <script src="../highlight/highlight.min.js"></script>
+  <script src="../highlight/codeBlock.js"></script>
+  <link rel="stylesheet" href="../assets/css/mystyle.css">
+</head>
+
+<body class="light"> <!-- Default to light theme -->
+
+    <nav class="global">
+        <a href="../index.html">Home</a>
+        
+        <a href="number.html">🔢 Числові типи даних</a>
+        <a href="string.html">🔡 Текстовий тип даних</a>
+        <a href="bool.html">Логічні (Булівські) типи</a>
+        <a href="list.html">Список (Масив) в Python</a>
+    
+    
+        <a href="os.html">Модуль os робота з операційною системою</a>
+        <a href="datetime.html">Модуль datetime дата та час</a>
+        <a href="pyodbc.html">Модуль pyodbc для роботи з базами даних через ODBC</a>
+        <a href="oracledb.html">Модуль python-oracledb для роботи з бд Oracle</a>
+        <a href="pywin32_excel.html">Модуль pywin32 для роботи з Excel</a>
+        <a href="pywin32_outlook.html">Модуль pywin32 для роботи з Outlook</a>
+        <a href="paramiko.html">Робота з SFTP-сервером: Завантаження та передача файлів за допомогою Paramiko</a>
+        <a href="tkinter.html">Розробка GUI в Python: основи роботи з Tkinter</a>
+      </nav>
+
+
+
+
+
+  <!-- CSS Switcher -->
+  <label for="theme-switcher">Theme:</label>
+  <select id="theme-switcher">
+    <option value="light" selected>Light</option>
+    <option value="dark">Dark</option>
+    <option value="warm">Warm</option>
+    <option value="cold">Cold</option>
+  </select>
+
+  <!-- Code Theme Switcher -->
+  <label for="code-theme-switcher">Code theme:</label>
+  <select id="code-theme-switcher">
+    <option value="default">Default</option>
+    <option value="atom-one-dark" selected>Atom One Dark</option>
+    <option value="1c-light">1C Light</option>
+    <option value="1c-light.min">1C Light.Min</option>
+    <option value="a11y-dark">A11Y Dark</option>
+    <option value="a11y-dark.min">A11Y Dark.Min</option>
+    <option value="a11y-light">A11Y Light</option>
+    <option value="a11y-light.min">A11Y Light.Min</option>
+    <option value="agate">Agate</option>
+    <option value="agate.min">Agate.Min</option>
+    <option value="an-old-hope">An Old Hope</option>
+    <option value="an-old-hope.min">An Old Hope.Min</option>
+    <option value="androidstudio">Androidstudio</option>
+    <option value="androidstudio.min">Androidstudio.Min</option>
+    <option value="arduino-light">Arduino Light</option>
+    <option value="arduino-light.min">Arduino Light.Min</option>
+    <option value="arta">Arta</option>
+    <option value="arta.min">Arta.Min</option>
+    <option value="ascetic">Ascetic</option>
+    <option value="ascetic.min">Ascetic.Min</option>
+    <option value="atom-one-dark-reasonable">Atom One Dark Reasonable</option>
+    <option value="atom-one-dark-reasonable.min">Atom One Dark Reasonable.Min</option>
+    <option value="atom-one-dark.min">Atom One Dark.Min</option>
+    <option value="atom-one-light">Atom One Light</option>
+    <option value="atom-one-light.min">Atom One Light.Min</option>
+    <option value="brown-paper">Brown Paper</option>
+    <option value="brown-paper.min">Brown Paper.Min</option>
+    <option value="codepen-embed">Codepen Embed</option>
+    <option value="codepen-embed.min">Codepen Embed.Min</option>
+    <option value="color-brewer">Color Brewer</option>
+    <option value="color-brewer.min">Color Brewer.Min</option>
+    <option value="dark">Dark</option>
+    <option value="dark.min">Dark.Min</option>
+    <option value="default.min">Default.Min</option>
+    <option value="devibeans">Devibeans</option>
+    <option value="devibeans.min">Devibeans.Min</option>
+    <option value="docco">Docco</option>
+    <option value="docco.min">Docco.Min</option>
+    <option value="far">Far</option>
+    <option value="far.min">Far.Min</option>
+    <option value="felipec">Felipec</option>
+    <option value="felipec.min">Felipec.Min</option>
+    <option value="foundation">Foundation</option>
+    <option value="foundation.min">Foundation.Min</option>
+    <option value="github-dark-dimmed">Github Dark Dimmed</option>
+    <option value="github-dark-dimmed.min">Github Dark Dimmed.Min</option>
+    <option value="github-dark">Github Dark</option>
+    <option value="github-dark.min">Github Dark.Min</option>
+    <option value="github">Github</option>
+    <option value="github.min">Github.Min</option>
+    <option value="gml">Gml</option>
+    <option value="gml.min">Gml.Min</option>
+    <option value="googlecode">Googlecode</option>
+    <option value="googlecode.min">Googlecode.Min</option>
+    <option value="gradient-dark">Gradient Dark</option>
+    <option value="gradient-dark.min">Gradient Dark.Min</option>
+    <option value="gradient-light">Gradient Light</option>
+    <option value="gradient-light.min">Gradient Light.Min</option>
+    <option value="grayscale">Grayscale</option>
+    <option value="grayscale.min">Grayscale.Min</option>
+    <option value="hybrid">Hybrid</option>
+    <option value="hybrid.min">Hybrid.Min</option>
+    <option value="idea">Idea</option>
+    <option value="idea.min">Idea.Min</option>
+    <option value="intellij-light">Intellij Light</option>
+    <option value="intellij-light.min">Intellij Light.Min</option>
+    <option value="ir-black">Ir Black</option>
+    <option value="ir-black.min">Ir Black.Min</option>
+    <option value="isbl-editor-dark">Isbl Editor Dark</option>
+    <option value="isbl-editor-dark.min">Isbl Editor Dark.Min</option>
+    <option value="isbl-editor-light">Isbl Editor Light</option>
+    <option value="isbl-editor-light.min">Isbl Editor Light.Min</option>
+    <option value="kimbie-dark">Kimbie Dark</option>
+    <option value="kimbie-dark.min">Kimbie Dark.Min</option>
+    <option value="kimbie-light">Kimbie Light</option>
+    <option value="kimbie-light.min">Kimbie Light.Min</option>
+    <option value="lightfair">Lightfair</option>
+    <option value="lightfair.min">Lightfair.Min</option>
+    <option value="lioshi">Lioshi</option>
+    <option value="lioshi.min">Lioshi.Min</option>
+    <option value="magula">Magula</option>
+    <option value="magula.min">Magula.Min</option>
+    <option value="mono-blue">Mono Blue</option>
+    <option value="mono-blue.min">Mono Blue.Min</option>
+    <option value="monokai-sublime">Monokai Sublime</option>
+    <option value="monokai-sublime.min">Monokai Sublime.Min</option>
+    <option value="monokai">Monokai</option>
+    <option value="monokai.min">Monokai.Min</option>
+    <option value="night-owl">Night Owl</option>
+    <option value="night-owl.min">Night Owl.Min</option>
+    <option value="nnfx-dark">Nnfx Dark</option>
+    <option value="nnfx-dark.min">Nnfx Dark.Min</option>
+    <option value="nnfx-light">Nnfx Light</option>
+    <option value="nnfx-light.min">Nnfx Light.Min</option>
+    <option value="nord">Nord</option>
+    <option value="nord.min">Nord.Min</option>
+    <option value="obsidian">Obsidian</option>
+    <option value="obsidian.min">Obsidian.Min</option>
+    <option value="panda-syntax-dark">Panda Syntax Dark</option>
+    <option value="panda-syntax-dark.min">Panda Syntax Dark.Min</option>
+    <option value="panda-syntax-light">Panda Syntax Light</option>
+    <option value="panda-syntax-light.min">Panda Syntax Light.Min</option>
+    <option value="paraiso-dark">Paraiso Dark</option>
+    <option value="paraiso-dark.min">Paraiso Dark.Min</option>
+    <option value="paraiso-light">Paraiso Light</option>
+    <option value="paraiso-light.min">Paraiso Light.Min</option>
+    <option value="pojoaque">Pojoaque</option>
+    <option value="pojoaque.min">Pojoaque.Min</option>
+    <option value="purebasic">Purebasic</option>
+    <option value="purebasic.min">Purebasic.Min</option>
+    <option value="qtcreator-dark">Qtcreator Dark</option>
+    <option value="qtcreator-dark.min">Qtcreator Dark.Min</option>
+    <option value="qtcreator-light">Qtcreator Light</option>
+    <option value="qtcreator-light.min">Qtcreator Light.Min</option>
+    <option value="rainbow">Rainbow</option>
+    <option value="rainbow.min">Rainbow.Min</option>
+    <option value="routeros">Routeros</option>
+    <option value="routeros.min">Routeros.Min</option>
+    <option value="school-book">School Book</option>
+    <option value="school-book.min">School Book.Min</option>
+    <option value="shades-of-purple">Shades Of Purple</option>
+    <option value="shades-of-purple.min">Shades Of Purple.Min</option>
+    <option value="srcery">Srcery</option>
+    <option value="srcery.min">Srcery.Min</option>
+    <option value="stackoverflow-dark">Stackoverflow Dark</option>
+    <option value="stackoverflow-dark.min">Stackoverflow Dark.Min</option>
+    <option value="stackoverflow-light">Stackoverflow Light</option>
+    <option value="stackoverflow-light.min">Stackoverflow Light.Min</option>
+    <option value="sunburst">Sunburst</option>
+    <option value="sunburst.min">Sunburst.Min</option>
+    <option value="tokyo-night-dark">Tokyo Night Dark</option>
+    <option value="tokyo-night-dark.min">Tokyo Night Dark.Min</option>
+    <option value="tokyo-night-light">Tokyo Night Light</option>
+    <option value="tokyo-night-light.min">Tokyo Night Light.Min</option>
+    <option value="tomorrow-night-blue">Tomorrow Night Blue</option>
+    <option value="tomorrow-night-blue.min">Tomorrow Night Blue.Min</option>
+    <option value="tomorrow-night-bright">Tomorrow Night Bright</option>
+    <option value="tomorrow-night-bright.min">Tomorrow Night Bright.Min</option>
+    <option value="vs">Vs</option>
+    <option value="vs.min">Vs.Min</option>
+    <option value="vs2015">Vs2015</option>
+    <option value="vs2015.min">Vs2015.Min</option>
+    <option value="xcode">Xcode</option>
+    <option value="xcode.min">Xcode.Min</option>
+    <option value="xt256">Xt256</option>
+    <option value="xt256.min">Xt256.Min</option>
+  </select>
+
+  <h1>🔡 Текстовий тип даних</h1>
+
+  <h3>4️⃣ str (рядки)</h3>
+  <p>Рядки в Python — це послідовність символів, які можна оголошувати в одинарних <code>' '</code>, подвійних <code>" "</code>.</p>
+  <p>Для багаторядкових рядків потрійних одинарних <code>''' '''</code> або подвійних <code>""" """</code> лапках.</p>
+  <pre>
+      <code>
+empty = ''
+text = "Hello world!"
+one = '1'
+one = str(1)
+multi_line_text = """line1
+line2
+line3
+line4
+line5"""
+      </code>
+  </pre>
+
+  <h2>🔡 Основні спеціальні символи в рядках</h2>
+  <ul>
+      <li><strong>Перехід на новий рядок:</strong> <code>\n</code></li>
+      <li><strong>Табуляція:</strong> <code>\t</code></li>
+      <li><strong>Зворотний слеш:</strong> <code>\\</code></li>
+      <li><strong>Гарячі лапки (дві лапки):</strong> <code>\"</code></li>
+      <li><strong>Одинарні лапки:</strong> <code>\'</code></li>
+      <li><strong>Юнікод-символи:</strong> <code>\u</code> або <code>\U</code></li>
+  </ul>
+
+  <h4>Приклад використання спеціальних символів:</h4>
+  <pre>
+      <code>
+text = "Hello\nWorld!"  # Перехід на новий рядок
+print(text)  # Виведе:
+# Hello
+# World!
+
+text = "Hello\tPython!"  # Табуляція
+print(text)  # Виведе: Hello    Python!
+
+text = "This is a backslash: \\"  # Зворотний слеш
+print(text)  # Виведе: This is a backslash: \
+
+text = "He said: \"Python is awesome!\""  # Гарячі лапки
+print(text)  # Виведе: He said: "Python is awesome!"
+
+text = "Unicode: \u2764"  # Юнікод-символ
+print(text)  # Виведе: Unicode: ❤
+
+text = "❤ - ?"
+# Переводимо кожен символ у юнікод і об'єднуємо в один рядок
+unicode_string = ''.join([f'\\u{ord(c):04x}' for c in text])
+print(unicode_string)  # Виведе: \u2764\u0020\u002d\u0020\u003f
+      </code>
+  </pre>
+
+  <h2>🔡 Індексація та зрізи</h2>
+  <pre>
+      <code>
+text = "✔Hello world✔"
+
+print(text[0])       # '✔'  - Перший символ рядка (індексація з 0)
+print(text[7:12])    # 'world'  - Зріз з індекса 7 по 12 (не включаючи 12)
+print(text[7:])      # 'world✔'  - Зріз з індекса 7 до кінця рядка
+print(text[7:100])   # 'world✔'  - Зріз з індекса 7 до кінця рядка (100 більше за довжину рядка, результат той самий)
+print(text[1:-1])    # 'Hello world'  - Зріз без першого і останнього символу
+print(text[-6:-1])   # 'world'  - Зріз з кінця рядка в зворотному напрямку (індекси -6 до -1)
+print(text[-6:])     # 'world✔'  - Зріз з кінця рядка в зворотному напрямку (починаючи з індекса -6 до кінця)
+      </code>
+  </pre>
+ 
+ 
+  <h1>🔡 Операції з рядками:</h1>
+
+  <h2>Конкатенація: <code>+</code> та <code>join</code></h2>
+  <pre>
+      <code>
+# Використання операції + для конкатенації
+text1 = "Hello"
+text2 = "Python"
+result_plus = text1 + ", " + text2  # 'Hello, Python'
+
+# Використання join для конкатенації
+words = ["Hello", "Python"]
+result_join = ", ".join(words)  # 'Hello, Python'
+      </code>
+  </pre>
+
+  <h2>Повторення: <code>*</code></h2>
+  <pre>
+      <code>
+text = "Hello "
+result = text * 3  # 'Hello Hello Hello '
+      </code>
+  </pre>
+
+  <h2>Перевірка наявності підрядка: <code>in</code></h2>
+  <pre>
+      <code>
+text = "Hello, Python!"
+print("Python" in text)  # True
+print("Java" in text)    # False
+      </code>
+  </pre>
+
+  <h2>Заміна підрядка: <code>replace()</code></h2>
+  <pre>
+      <code>
+text = "Hello, Python!"
+result = text.replace("Python", "World")  # 'Hello, World!'
+      </code>
+  </pre>
+
+  <h2>Розділення рядка: <code>split()</code></h2>
+  <pre>
+      <code>
+text = "Hello, Python, World!"
+result = text.split(", ")  # ['Hello', 'Python', 'World!']
+      </code>
+  </pre>
+
+  <h2>Трансформація в нижній регістр: <code>lower()</code></h2>
+  <pre>
+      <code>
+text = "HELLO, PYTHON!"
+result = text.lower()  # 'hello, python!'
+      </code>
+  </pre>
+
+  <h2>Трансформація в верхній регістр: <code>upper()</code></h2>
+  <pre>
+      <code>
+text = "hello, python!"
+result = text.upper()  # 'HELLO, PYTHON!'
+      </code>
+  </pre>
+
+  <h2>Обрізка пробілів з початку і кінця рядка: <code>strip()</code></h2>
+  <pre>
+      <code>
+text = "   Hello, Python!   "
+result = text.strip()  # 'Hello, Python!'
+      </code>
+  </pre>
+
+  <h2>Отримання індексу підрядка: <code>find()</code></h2>
+  <pre>
+      <code>
+text = "Hello, Python!"
+index = text.find("Python")  # 7
+      </code>
+  </pre>
+
+
+
+  <h1>🔡 f-string (форматування рядків у Python 3.6+)</h1>
+  <p>Дозволяє вставляти змінні та вирази безпосередньо в рядок.</p>
+  <pre>
+      <code>
+name = "world"
+year = 2025
+text = f"Hello, {name}! Year: {year}"
+print(text)  # 'Hello, world! Year: 2025'
+      </code>
+  </pre>
+
+  <h1>🔡 r-string (сирий рядок)</h1>
+  <p>Використовується для обробки спеціальних символів (наприклад, шляхів файлів), не обробляючи зворотні слеші.</p>
+  <pre>
+      <code>
+path = r"C:\Users\Python\Documents"
+print(path)        # 'C:\Users\Python\Documents'
+print(repr(path))  # 'C:\\Users\\Python\\Documents'
+
+SQL = r'''
+SELECT *
+FROM tbl
+WHERE col = 'value'
+'''
+print(SQL)
+print(repr(SQL))
+      </code>
+  </pre>
+
+  <h2>Виведення SQL-запиту:</h2>
+  <pre>
+      <code>
+# Виведення SQL-запиту, як він є, з новими рядками
+print(SQL)
+
+SELECT *
+FROM tbl
+WHERE col = 'value'
+
+# Виведення представлення SQL-запиту з показом escape-послідовностей (наприклад, \n)
+print(repr(SQL))
+"\nSELECT *\nFROM tbl\nWHERE col = 'value'\n"
+      </code>
+  </pre>
+
+  </section> 
+
+</body>
+
+</html>
