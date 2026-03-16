@@ -6,13 +6,18 @@ console.log("lastPart: ", lastPart);
 // Перевіряємо, чи ми на головній сторінці (пусто або index.html)
 const isHomePage = lastPart === "" || lastPart === "index.html";
 
+
+
 // Якщо ми на головній, нам не потрібно виходити назад (../)
 let dir_index = isHomePage ? "" : "../";
 
 // Якщо ми на головній, посилання на сторінки мають вести в папку pages/
 let dir_pages = isHomePage ? "pages/" : "";
 
-
+if (url === "https://fishka-dkovalskyi.github.io/snippets-marichka/") {
+  dir_index = "";
+  dir_pages = "pages/";
+}
 
 
 const navItems = [
