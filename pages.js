@@ -3,10 +3,16 @@ console.log("url: ", url)
 let lastPart = url.split('/').pop();  // "index.html"
 console.log("lastPart: ", lastPart);
 
+// Перевіряємо, чи ми на головній сторінці (пусто або index.html)
+const isHomePage = lastPart === "" || lastPart === "index.html";
 
-// Determine the prefix for hrefs
-let dir_index = lastPart === "index.html" ? "" : "../";
-let dir_pages = lastPart === "index.html" ? "pages/" : "";
+// Якщо ми на головній, нам не потрібно виходити назад (../)
+let dir_index = isHomePage ? "" : "../";
+
+// Якщо ми на головній, посилання на сторінки мають вести в папку pages/
+let dir_pages = isHomePage ? "pages/" : "";
+
+
 
 
 const navItems = [
