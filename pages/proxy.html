@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="../favicon.ico">
+  <title>Використання проксі-сервера</title>
+
+  <link id="highlight-css" rel="stylesheet" href="../highlight/styles/atom-one-dark.css">
+  <script src="../highlight/highlight.min.js"></script>
+  <script src="../highlight/codeBlock.js"></script>
+  <link rel="stylesheet" href="../assets/css/mystyle.css">
+</head>
+
+<body class="dark">
+  <div class="page-wrapper">
+
+    <nav id="nav-local" class="local">
+      <a href="#1">Що таке проксі?</a>
+      <a href="#2">Підключення у бібліотеці requests</a>
+      <a href="#3">Проксі з авторизацією</a>
+      <div class="resizer"></div>
+    </nav>
+
+    <main id="content">
+      <div class="theme">
+        <div id="theme-container"></div>
+      </div>
+
+      <h1>Використання проксі-сервера</h1>
+
+      <section id="1">
+
+        <h2>Що таке проксі-сервер?</h2>
+        <p><b>Проксі-сервер</b> — це проміжний комп'ютер, який виступає посередником між вашим скриптом та кінцевим сайтом.</p>
+        
+        <div class="info-block">
+          <h3>Як це працює:</h3>
+          <ul>
+            <li>Ваш скрипт відправляє запит на проксі.</li>
+            <li>Проксі пересилає його сайту від свого імені.</li>
+            <li>Сайт відповідає проксі-серверу.</li>
+            <li>Проксі передає відповідь вам.</li>
+          </ul>
+        </div>
+
+        <h3>Навіщо це потрібно:</h3>
+        <ul>
+          <li><strong>Анонімність:</strong> приховує вашу реальну IP-адресу.</li>
+          <li><strong>Обхід обмежень:</strong> доступ до ресурсів, заблокованих у вашому регіоні.</li>
+          <li><strong>Парсинг:</strong> захист від банів при масових запитах.</li>
+        </ul>
+      </section>
+
+      <hr>
+      
+        
+
+      </section>
+
+      <hr>
+
+      <section id="2">
+        <h2>Підключення у бібліотеці requests</h2>
+        <p>Для використання проксі cтворимо словник <code>proxies</code>.</p>
+        <p>Формат для проксі: <code>host:port</code>.</p>
+        <p>Формат для проксі з авторизацією: <code>user:password@host:port</code>.</p>
+        <script>
+          createCodeBlock(String.raw`
+import requests
+
+proxies = {
+    'http': 'http://1.2.3.4:8080',
+    'https': 'http://1.2.3.4:8080',
+}
+
+# Тестовий запит для перевірки своєї IP-адреси
+response = requests.get('https://httpbin.org/ip', proxies=proxies)
+print(f"Ваш IP зараз: {response.json()['origin']}")
+`, document.querySelector('[id="2"]'));
+        </script>
+      </section>
+
+      <section id="3">
+        <h2>Проксі з авторизацією</h2>
+        <p>Формат: <code>user:password@host:port</code>.</p>
+        <script>
+          createCodeBlock(String.raw`
+import requests
+import csv
+import io
+
+SPREADSHEET_ID = "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms"
+
+proxies = {
+    "http":  "http://user:password@host:port",
+    "https": "http://user:password@host:port",
+}    
+    
+url = f"https://docs.google.com/spreadsheets/d/{SPREADSHEET_ID}/export?format=csv&gid=0"
+print(url)
+r = requests.get(url, timeout=60, proxies=proxies)
+r.raise_for_status()
+content = r.content.decode("utf-8", errors="replace")
+data = list(csv.reader(io.StringIO(content)))
+for row in data[:10]:
+    print(row)
+`, document.querySelector('[id="3"]'));
+        </script>
+      </section>
+
+
+
+      <section id="4">
+        <h2>Google Sheets API через проксі </h2>
+
+        <script>
+          createCodeBlock(String.raw`
+import os
+import httplib2
+
+from google.oauth2.credentials import Credentials
+from google.auth.transport.requests import Request
+from google_auth_httplib2 import AuthorizedHttp
+from google_auth_oauthlib.flow import InstalledAppFlow
+from googleapiclient.discovery import build
+
+SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
+
+SPREADSHEET_ID = "YOUR_SPREADSHEET_ID" # example "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms"
+RANGE = "YOUR_RANGE" # example: "Class Data!A:E"
+
+PROXY_HOST = "YOUR_PROXY"
+PROXY_PORT = YOUR_PORT # 9090
+PROXIES = {"http": f"http://{PROXY_HOST}:{PROXY_PORT}",
+           "https": f"http://{PROXY_HOST}:{PROXY_PORT}"}
+
+
+def get_creds():
+    creds = Credentials.from_authorized_user_file("token.json", SCOPES) if os.path.exists("token.json") else None
+
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            req = Request()
+            req.session.proxies.update(PROXIES)
+            creds.refresh(req)
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file("credentials.json", SCOPES)
+            flow.oauth2session.proxies = PROXIES
+            creds = flow.run_local_server(port=0)
+
+        open("token.json", "w").write(creds.to_json())
+
+    return creds
+
+
+def main():
+    proxy = httplib2.ProxyInfo(
+        proxy_type=httplib2.socks.PROXY_TYPE_HTTP,
+        proxy_host=PROXY_HOST,
+        proxy_port=PROXY_PORT,
+    )
+
+    http = httplib2.Http(proxy_info=proxy)
+    service = build("sheets", "v4", http=AuthorizedHttp(get_creds(), http=http))
+
+    result = service.spreadsheets().values().get(
+        spreadsheetId=SPREADSHEET_ID,
+        range=RANGE
+    ).execute()
+
+    print(result.get("values", []))
+
+
+print("Початок підключення до Google Sheets")
+main()
+print("Кінець підключення до Google Sheets")
+`, document.querySelector('[id="4"]'));
+        </script>
+      </section>
+
+    </main>
+
+    <nav id="nav-global" class="global"></nav>
+
+    <script src="../themes.js"></script>
+    <script src="../pages.js"></script>
+  </div>
+</body>
+
+</html>

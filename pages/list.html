@@ -15,207 +15,62 @@
   <link rel="stylesheet" href="../assets/css/mystyle.css">
 </head>
 
-<body class="light"> <!-- Default to light theme -->
+<body class="dark"> <!-- Default to dark theme -->
+  <div class="page-wrapper">
 
-  <nav class="global">
-    <a href="../index.html">Home</a>
-    
-    <a href="number.html">🔢 Числові типи даних</a>
-    <a href="string.html">🔡 Текстовий тип даних</a>
-    <a href="bool.html">Логічні (Булівські) типи</a>
-    <a href="list.html">Список (Масив) в Python</a>
-
-
-    <a href="os.html">Модуль os робота з операційною системою</a>
-    <a href="datetime.html">Модуль datetime дата та час</a>
-    <a href="pyodbc.html">Модуль pyodbc для роботи з базами даних через ODBC</a>
-    <a href="oracledb.html">Модуль python-oracledb для роботи з бд Oracle</a>
-    <a href="pywin32_excel.html">Модуль pywin32 для роботи з Excel</a>
-    <a href="pywin32_outlook.html">Модуль pywin32 для роботи з Outlook</a>
-    <a href="paramiko.html">Робота з SFTP-сервером: Завантаження та передача файлів за допомогою Paramiko</a>
-    <a href="tkinter.html">Розробка GUI в Python: основи роботи з Tkinter</a>
-  </nav>
+    <nav id="nav-local" class="local">
+      <a href="#1">Створення списку</a>
+      <a href="#2">Доступ до елементів списку</a>
+      <a href="#3">Зміна елементів списку</a>
+      <a href="#4">Додавання елементів до списку</a>
+      <a href="#5">Видалення елементів зі списку</a>
+      <a href="#6">Перевірка наявності елемента в списку</a>
+      <a href="#7">Ітерація по елементах списку</a>
+      <a href="#8">Спискові вирази (List Comprehensions)</a>
+      <a href="#9">Сортування списку</a>
+      <a href="#10">Підсумок</a>
+      <a href="#11">Зрізи (Slicing) списку</a>
+      <div class="resizer"></div>
+    </nav>
 
 
+    <main id="content">
+      <div class="theme">
+        <!-- Themes Switcher -->
+        <div id="theme-container"></div>
+
+      </div>
 
 
 
-  <!-- CSS Switcher -->
-  <label for="theme-switcher">Theme:</label>
-  <select id="theme-switcher">
-    <option value="light" selected>Light</option>
-    <option value="dark">Dark</option>
-    <option value="warm">Warm</option>
-    <option value="cold">Cold</option>
-  </select>
 
-  <!-- Code Theme Switcher -->
-  <label for="code-theme-switcher">Code theme:</label>
-  <select id="code-theme-switcher">
-    <option value="default">Default</option>
-    <option value="atom-one-dark" selected>Atom One Dark</option>
-    <option value="1c-light">1C Light</option>
-    <option value="1c-light.min">1C Light.Min</option>
-    <option value="a11y-dark">A11Y Dark</option>
-    <option value="a11y-dark.min">A11Y Dark.Min</option>
-    <option value="a11y-light">A11Y Light</option>
-    <option value="a11y-light.min">A11Y Light.Min</option>
-    <option value="agate">Agate</option>
-    <option value="agate.min">Agate.Min</option>
-    <option value="an-old-hope">An Old Hope</option>
-    <option value="an-old-hope.min">An Old Hope.Min</option>
-    <option value="androidstudio">Androidstudio</option>
-    <option value="androidstudio.min">Androidstudio.Min</option>
-    <option value="arduino-light">Arduino Light</option>
-    <option value="arduino-light.min">Arduino Light.Min</option>
-    <option value="arta">Arta</option>
-    <option value="arta.min">Arta.Min</option>
-    <option value="ascetic">Ascetic</option>
-    <option value="ascetic.min">Ascetic.Min</option>
-    <option value="atom-one-dark-reasonable">Atom One Dark Reasonable</option>
-    <option value="atom-one-dark-reasonable.min">Atom One Dark Reasonable.Min</option>
-    <option value="atom-one-dark.min">Atom One Dark.Min</option>
-    <option value="atom-one-light">Atom One Light</option>
-    <option value="atom-one-light.min">Atom One Light.Min</option>
-    <option value="brown-paper">Brown Paper</option>
-    <option value="brown-paper.min">Brown Paper.Min</option>
-    <option value="codepen-embed">Codepen Embed</option>
-    <option value="codepen-embed.min">Codepen Embed.Min</option>
-    <option value="color-brewer">Color Brewer</option>
-    <option value="color-brewer.min">Color Brewer.Min</option>
-    <option value="dark">Dark</option>
-    <option value="dark.min">Dark.Min</option>
-    <option value="default.min">Default.Min</option>
-    <option value="devibeans">Devibeans</option>
-    <option value="devibeans.min">Devibeans.Min</option>
-    <option value="docco">Docco</option>
-    <option value="docco.min">Docco.Min</option>
-    <option value="far">Far</option>
-    <option value="far.min">Far.Min</option>
-    <option value="felipec">Felipec</option>
-    <option value="felipec.min">Felipec.Min</option>
-    <option value="foundation">Foundation</option>
-    <option value="foundation.min">Foundation.Min</option>
-    <option value="github-dark-dimmed">Github Dark Dimmed</option>
-    <option value="github-dark-dimmed.min">Github Dark Dimmed.Min</option>
-    <option value="github-dark">Github Dark</option>
-    <option value="github-dark.min">Github Dark.Min</option>
-    <option value="github">Github</option>
-    <option value="github.min">Github.Min</option>
-    <option value="gml">Gml</option>
-    <option value="gml.min">Gml.Min</option>
-    <option value="googlecode">Googlecode</option>
-    <option value="googlecode.min">Googlecode.Min</option>
-    <option value="gradient-dark">Gradient Dark</option>
-    <option value="gradient-dark.min">Gradient Dark.Min</option>
-    <option value="gradient-light">Gradient Light</option>
-    <option value="gradient-light.min">Gradient Light.Min</option>
-    <option value="grayscale">Grayscale</option>
-    <option value="grayscale.min">Grayscale.Min</option>
-    <option value="hybrid">Hybrid</option>
-    <option value="hybrid.min">Hybrid.Min</option>
-    <option value="idea">Idea</option>
-    <option value="idea.min">Idea.Min</option>
-    <option value="intellij-light">Intellij Light</option>
-    <option value="intellij-light.min">Intellij Light.Min</option>
-    <option value="ir-black">Ir Black</option>
-    <option value="ir-black.min">Ir Black.Min</option>
-    <option value="isbl-editor-dark">Isbl Editor Dark</option>
-    <option value="isbl-editor-dark.min">Isbl Editor Dark.Min</option>
-    <option value="isbl-editor-light">Isbl Editor Light</option>
-    <option value="isbl-editor-light.min">Isbl Editor Light.Min</option>
-    <option value="kimbie-dark">Kimbie Dark</option>
-    <option value="kimbie-dark.min">Kimbie Dark.Min</option>
-    <option value="kimbie-light">Kimbie Light</option>
-    <option value="kimbie-light.min">Kimbie Light.Min</option>
-    <option value="lightfair">Lightfair</option>
-    <option value="lightfair.min">Lightfair.Min</option>
-    <option value="lioshi">Lioshi</option>
-    <option value="lioshi.min">Lioshi.Min</option>
-    <option value="magula">Magula</option>
-    <option value="magula.min">Magula.Min</option>
-    <option value="mono-blue">Mono Blue</option>
-    <option value="mono-blue.min">Mono Blue.Min</option>
-    <option value="monokai-sublime">Monokai Sublime</option>
-    <option value="monokai-sublime.min">Monokai Sublime.Min</option>
-    <option value="monokai">Monokai</option>
-    <option value="monokai.min">Monokai.Min</option>
-    <option value="night-owl">Night Owl</option>
-    <option value="night-owl.min">Night Owl.Min</option>
-    <option value="nnfx-dark">Nnfx Dark</option>
-    <option value="nnfx-dark.min">Nnfx Dark.Min</option>
-    <option value="nnfx-light">Nnfx Light</option>
-    <option value="nnfx-light.min">Nnfx Light.Min</option>
-    <option value="nord">Nord</option>
-    <option value="nord.min">Nord.Min</option>
-    <option value="obsidian">Obsidian</option>
-    <option value="obsidian.min">Obsidian.Min</option>
-    <option value="panda-syntax-dark">Panda Syntax Dark</option>
-    <option value="panda-syntax-dark.min">Panda Syntax Dark.Min</option>
-    <option value="panda-syntax-light">Panda Syntax Light</option>
-    <option value="panda-syntax-light.min">Panda Syntax Light.Min</option>
-    <option value="paraiso-dark">Paraiso Dark</option>
-    <option value="paraiso-dark.min">Paraiso Dark.Min</option>
-    <option value="paraiso-light">Paraiso Light</option>
-    <option value="paraiso-light.min">Paraiso Light.Min</option>
-    <option value="pojoaque">Pojoaque</option>
-    <option value="pojoaque.min">Pojoaque.Min</option>
-    <option value="purebasic">Purebasic</option>
-    <option value="purebasic.min">Purebasic.Min</option>
-    <option value="qtcreator-dark">Qtcreator Dark</option>
-    <option value="qtcreator-dark.min">Qtcreator Dark.Min</option>
-    <option value="qtcreator-light">Qtcreator Light</option>
-    <option value="qtcreator-light.min">Qtcreator Light.Min</option>
-    <option value="rainbow">Rainbow</option>
-    <option value="rainbow.min">Rainbow.Min</option>
-    <option value="routeros">Routeros</option>
-    <option value="routeros.min">Routeros.Min</option>
-    <option value="school-book">School Book</option>
-    <option value="school-book.min">School Book.Min</option>
-    <option value="shades-of-purple">Shades Of Purple</option>
-    <option value="shades-of-purple.min">Shades Of Purple.Min</option>
-    <option value="srcery">Srcery</option>
-    <option value="srcery.min">Srcery.Min</option>
-    <option value="stackoverflow-dark">Stackoverflow Dark</option>
-    <option value="stackoverflow-dark.min">Stackoverflow Dark.Min</option>
-    <option value="stackoverflow-light">Stackoverflow Light</option>
-    <option value="stackoverflow-light.min">Stackoverflow Light.Min</option>
-    <option value="sunburst">Sunburst</option>
-    <option value="sunburst.min">Sunburst.Min</option>
-    <option value="tokyo-night-dark">Tokyo Night Dark</option>
-    <option value="tokyo-night-dark.min">Tokyo Night Dark.Min</option>
-    <option value="tokyo-night-light">Tokyo Night Light</option>
-    <option value="tokyo-night-light.min">Tokyo Night Light.Min</option>
-    <option value="tomorrow-night-blue">Tomorrow Night Blue</option>
-    <option value="tomorrow-night-blue.min">Tomorrow Night Blue.Min</option>
-    <option value="tomorrow-night-bright">Tomorrow Night Bright</option>
-    <option value="tomorrow-night-bright.min">Tomorrow Night Bright.Min</option>
-    <option value="vs">Vs</option>
-    <option value="vs.min">Vs.Min</option>
-    <option value="vs2015">Vs2015</option>
-    <option value="vs2015.min">Vs2015.Min</option>
-    <option value="xcode">Xcode</option>
-    <option value="xcode.min">Xcode.Min</option>
-    <option value="xt256">Xt256</option>
-    <option value="xt256.min">Xt256.Min</option>
-  </select>
+
+
 
   <h1>Список (Масив) в Python</h1>
 
-  <p>Список в Python — це впорядкована змінна колекція елементів, яка може містити різноманітні типи даних. Списки дозволяють змінювати їх елементи, додавати, видаляти і змінювати їх порядок.</p>
+ <p>Список в Python — це впорядкована змінна колекція елементів, яка може містити різноманітні типи даних. Списки дозволяють змінювати їх елементи, додавати, видаляти і змінювати їх порядок.</p>
 
+        <section id="1">
   <h2>Створення списку</h2>
   <p>Списки створюються за допомогою квадратних дужок <code>[]</code> і можуть містити елементи будь-якого типу.</p>
-  <pre><code>my_list = [1, 2, 3, 4, 5]
+          <script>
+          createCodeBlock(String.raw`
+my_list = [1, 2, 3, 4, 5]
 print(my_list)  # Виведе: [1, 2, 3, 4, 5]
 
 ## Порожній список
 empty_list = []
-print(empty_list)  # Виведе: []</code></pre>
+print(empty_list)  # Виведе: []`, document.querySelector('[id="1"]'));
+        </script>
+        </section>
 
+                <section id="2">
   <h2>Доступ до елементів списку</h2>
   <p>Елементи списку можна отримувати за допомогою індексації, де індексація починається з 0.</p>
-  <pre><code>my_list = [10, 20, 30, 40, 50]
+        <script>
+          createCodeBlock(String.raw`
+my_list = [10, 20, 30, 40, 50]
 
 ## Доступ до елементів за індексом
 print(my_list[0])  # Виведе: 10
@@ -223,17 +78,28 @@ print(my_list[2])  # Виведе: 30
 
 ## Негативні індекси для доступу з кінця
 print(my_list[-1])  # Виведе: 50
-print(my_list[-2])  # Виведе: 40</code></pre>
+print(my_list[-2])  # Виведе: 40`, document.querySelector('[id="2"]'));
+        </script>
+</section>
 
+                <section id="3">
   <h2>Зміна елементів списку</h2>
   <p>Елементи списку можна змінювати безпосередньо за допомогою індексації.</p>
-  <pre><code>my_list = [10, 20, 30, 40, 50]
+        <script>
+createCodeBlock(String.raw`
+my_list = [10, 20, 30, 40, 50]
 my_list[1] = 25
-print(my_list)  # Виведе: [10, 25, 30, 40, 50]</code></pre>
+print(my_list)  # Виведе: [10, 25, 30, 40, 50]
+`, document.querySelector('[id="3"]'));
+        </script>
+</section>
 
+                <section id="4">
   <h2>Додавання елементів до списку</h2>
   <p>Для додавання елементів до списку можна використовувати методи <code>append()</code>, <code>insert()</code> або оператор <code>+=</code>.</p>
-  <pre><code>my_list = [1, 2, 3]
+        <script>
+createCodeBlock(String.raw`
+my_list = [1, 2, 3]
 
 ## Додавання елемента в кінець списку
 my_list.append(4)
@@ -245,11 +111,16 @@ print(my_list)  # Виведе: [1, 10, 2, 3, 4]
 
 ## Додавання кількох елементів
 my_list += [5, 6]
-print(my_list)  # Виведе: [1, 10, 2, 3, 4, 5, 6]</code></pre>
+print(my_list)  # Виведе: [1, 10, 2, 3, 4, 5, 6]`, document.querySelector('[id="4"]'));
+        </script>
+</section>
 
+                <section id="5">
   <h2>Видалення елементів зі списку</h2>
   <p>Для видалення елементів можна використовувати методи <code>remove()</code>, <code>pop()</code> або оператор <code>del</code>.</p>
-  <pre><code>my_list = [1, 2, 3, 4, 5]
+          <script>
+createCodeBlock(String.raw`
+my_list = [1, 2, 3, 4, 5]
 
 ## Видалення конкретного елемента
 my_list.remove(3)
@@ -262,18 +133,30 @@ print(removed_element)  # Виведе: 4
 
 ## Видалення елемента за допомогою del
 del my_list[1]
-print(my_list)  # Виведе: [1, 5]</code></pre>
+print(my_list)  # Виведе: [1, 5]
+`, document.querySelector('[id="5"]'));
+        </script>
+</section>
 
+                <section id="6">
   <h2>Перевірка наявності елемента в списку</h2>
-  <p>Для перевірки наявності елемента в списку можна використовувати оператор <code>in</code>.</p>
-  <pre><code>my_list = [10, 20, 30, 40, 50]
+  <p>Для перевірки наявності елемента в списку можна використовувати оператор <code>in</code>.</p> 
+           <script>
+createCodeBlock(String.raw`
+my_list = [10, 20, 30, 40, 50]
 
 print(30 in my_list)  # Виведе: True
-print(60 in my_list)  # Виведе: False</code></pre>
+print(60 in my_list)  # Виведе: False
+`, document.querySelector('[id="6"]'));
+        </script>
+</section>
 
+<section id="7">
   <h2>Ітерація по елементах списку</h2>
   <p>Для перебору елементів списку можна використовувати цикл <code>for</code>.</p>
-  <pre><code>my_list = [10, 20, 30, 40, 50]
+            <script>
+createCodeBlock(String.raw`
+my_list = [10, 20, 30, 40, 50]
 
 for item in my_list:
   print(item)
@@ -282,17 +165,29 @@ for item in my_list:
 # 20
 # 30
 # 40
-# 50</code></pre>
+# 50
+`, document.querySelector('[id="7"]'));
+        </script>
+</section>
 
+<section id="8">
   <h2>Спискові вирази (List Comprehensions)</h2>
   <p>Спискові вирази дозволяють створювати нові списки на основі вже існуючих, при цьому вони мають компактний вигляд.</p>
-  <pre><code>## Створення списку з квадратів чисел
+            <script>
+createCodeBlock(String.raw`
+## Створення списку з квадратів чисел
 squares = [x**2 for x in range(1, 6)]
-print(squares)  # Виведе: [1, 4, 9, 16, 25]</code></pre>
+print(squares)  # Виведе: [1, 4, 9, 16, 25]
+`, document.querySelector('[id="8"]'));
+        </script>
+</section>
 
+<section id="9">
   <h2>Сортування списку</h2>
   <p>Список можна сортувати за допомогою методу <code>sort()</code> або функції <code>sorted()</code>.</p>
-  <pre><code>my_list = [3, 1, 4, 2, 5]
+            <script>
+createCodeBlock(String.raw`
+my_list = [3, 1, 4, 2, 5]
 
 ## Сортування списку
 my_list.sort()
@@ -300,8 +195,12 @@ print(my_list)  # Виведе: [1, 2, 3, 4, 5]
 
 ## Використання sorted() для отримання нового відсортованого списку
 sorted_list = sorted(my_list, reverse=True)
-print(sorted_list)  # Виведе: [5, 4, 3, 2, 1]</code></pre>
+print(sorted_list)  # Виведе: [5, 4, 3, 2, 1]
+`, document.querySelector('[id="9"]'));
+        </script>
+</section>
 
+<section id="10">
   <h2>Підсумок</h2>
   <ul>
       <li>Списки — це впорядковані колекції, які можуть містити елементи різних типів.</li>
@@ -309,9 +208,15 @@ print(sorted_list)  # Виведе: [5, 4, 3, 2, 1]</code></pre>
       <li>Списки можна змінювати (вони змінні), і вони забезпечують зручний інтерфейс для роботи з даними.</li>
   </ul>
 
+  </section>
+
+
+  <section id="11">
   <h2>Зрізи (Slicing) списку</h2>
   <p>Зрізи дозволяють отримувати частину списку за допомогою індексації. Для цього використовуються дві крапки <code>:</code> між індексами.</p>
-  <pre><code>my_list = [10, 20, 30, 40, 50]
+            <script>
+createCodeBlock(String.raw`
+my_list = [10, 20, 30, 40, 50]
 
 # Отримання підсписку з індексів від 1 до 3 (не включаючи 4)
 subset = my_list[1:4]
@@ -327,13 +232,17 @@ print(subset)  # Виведе: [30, 40, 50]
 
 # Зріз зі зміщенням кроків
 subset = my_list[::2]
-print(subset)  # Виведе: [10, 30, 50]</code></pre>
- 
- 
+print(subset)  # Виведе: [10, 30, 50]
+`, document.querySelector('[id="11"]'));
+           </script>
+</section>
+    </main>
 
+    <!-- Navigation global -->
+    <nav id="nav-global" class="global"></nav>
 
-  </section> 
-
+    <script src="..\themes.js"></script>
+    <script src="..\pages.js"></script>
 </body>
 
 </html>

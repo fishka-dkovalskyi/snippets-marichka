@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="favicon.ico">
+  <title>Зміни в проекті</title>
+
+
+  <!-- Default Highlight.js CSS -->
+  <link id="highlight-css" rel="stylesheet" href="highlight/styles/atom-one-dark.css">
+  <script src="highlight/highlight.min.js"></script>
+  <script src="highlight/codeBlock.js"></script>
+  <link rel="stylesheet" href="assets/css/mystyle.css">
+  <link rel="stylesheet" href="assets/css/home.css">
+
+</head>
+
+<body class="light"> <!-- Default to light theme -->
+
+ <!-- Themes Switcher -->
+<div id="theme-container"></div>
+
+
+<!-- Navigation global -->
+<nav id="nav-list" class="global"></nav>
+
+
+<!-- Navigation global -->
+<nav id="nav-list" class="global"></nav>
+
+
+
+<h1>Остання версія: 
+  <a style="float: right;" id="version-link"
+     href="changes.html"
+     style="text-decoration: none; color: inherit;">
+  </a>
+</h1>
+
+<h2 class="changes-title">Історія змін</h2>
+
+<section class="change-entry">
+  <div class="change-date">2026-01-20</div>
+  <ul>
+    <li>
+      Змінено
+      <a href="pages/number.html">🔢 Числові типи даних</a>
+    </li>
+  </ul>
+</section>
+
+
+  <script src="version.js"></script>
+  <script src="themes.js"></script>
+  <script src="pages.js"></script>
+<script>
+  document.getElementById("version-link").textContent = last_version;  
+</script>
+</body>
+
+</html>
