@@ -19,6 +19,9 @@ if (url === "https://fishka-dkovalskyi.github.io/snippets-marichka/") {
   dir_pages = "pages/";
 }
 
+console.log("dir_index: ", dir_index);
+console.log("dir_pages: ", dir_pages);
+
 
 const navItems = [
   { href: dir_index + "index.html", text: "Home" },
